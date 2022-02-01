@@ -19,7 +19,7 @@ resource "azurerm_function_app" "funapp" {
   }
 
   app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE"     = 1
+    "FUNCTIONS_EXTENSION_VERSION"  = "~3" 
     "FUNCTIONS_WORKER_RUNTIME"     = "node"
     "REDIS_CONNECTION_STRING"      = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["redisconnstring"].name})"
     "SERVICEBUS_CONNECTION_STRING" = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["queueconnstring"].name})"
