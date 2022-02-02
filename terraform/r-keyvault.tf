@@ -6,7 +6,6 @@ resource "azurerm_key_vault" "kv" {
 
   purge_protection_enabled = false
   sku_name                 = "standard"
-
 }
 
 resource "azurerm_key_vault_access_policy" "kvpolicies" {
@@ -20,7 +19,8 @@ resource "azurerm_key_vault_access_policy" "kvpolicies" {
     "Get",
     "List",
     "Set",
-    "Delete"
+    "Delete",
+    "Purge"
   ]
 }
 
