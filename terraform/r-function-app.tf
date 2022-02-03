@@ -16,13 +16,13 @@ resource "azurerm_function_app" "funapp" {
 
   site_config {
     always_on        = true
-    linux_fx_version = "NODE|14LTS" # https://github.com/Azure/app-service-linux-docs/tree/master/Runtime_Support
+    # linux_fx_version = "python 3.9" # https://github.com/Azure/app-service-linux-docs/tree/master/Runtime_Support
   }
 
   app_settings = {
     "FUNCTIONS_EXTENSION_VERSION"  = "~3" 
-    "FUNCTIONS_WORKER_RUNTIME"     = "node"
-    "REDIS_PASSWORD"               = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["redispassword"].name})"
-    "SERVICEBUS_CONNECTION_STRING" = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["queueconnstring"].name})"
+    "FUNCTIONS_WORKER_RUNTIME"     = "python"
+    "REDIS_PASSWORD"               = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["REDIS-PASSWORD"].name})"
+    "SERVICEBUS_CONNECTION_STRING" = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["SERVICE-BUS-CONNECTION-STRING"].name})"
   }
 }

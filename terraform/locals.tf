@@ -9,7 +9,7 @@ locals {
   }
 
   secrets_mapping = {
-    "queueconnstring" : azurerm_servicebus_namespace.sbn.default_primary_connection_string,
-    "redispassword" : azurerm_redis_cache.rc.primary_access_key,
+    "SERVICE-BUS-CONNECTION-STRING" : azurerm_servicebus_namespace.sbn.default_primary_connection_string,
+    "REDIS-PASSWORD" : azurerm_redis_cache.rc.primary_access_key,
   }
 }
