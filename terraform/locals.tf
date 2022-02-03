@@ -10,6 +10,7 @@ locals {
 
   secrets_mapping = {
     "SERVICE-BUS-CONNECTION-STRING" : azurerm_servicebus_namespace.sbn.default_primary_connection_string,
-    "REDIS-PASSWORD" : azurerm_redis_cache.rc.primary_access_key,
+    "REDIS-HOST": azurerm_redis_cache.rc.hostname,
+    "REDIS-PASSWORD": azurerm_redis_cache.rc.primary_access_key,
   }
 }
