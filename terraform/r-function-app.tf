@@ -16,7 +16,7 @@ resource "azurerm_function_app" "funapp" {
 
   site_config {
     always_on        = true
-    # linux_fx_version = "python 3.9" # https://github.com/Azure/app-service-linux-docs/tree/master/Runtime_Support
+    linux_fx_version = "PYTHON|3.9" # https://github.com/Azure/app-service-linux-docs/tree/master/Runtime_Support
   }
 
   app_settings = {
