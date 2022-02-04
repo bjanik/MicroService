@@ -6,7 +6,7 @@
             "direction": "in",
             "connection": "ServiceBusConnection",
             "name": "msg",
-            "queueName": "queue",
+            "queueName": "account-manager-queue",
             "type": "serviceBusTrigger"
         },
         {
