@@ -20,10 +20,10 @@ resource "azurerm_function_app" "funapp" {
   }
 
   app_settings = {
-    "FUNCTIONS_EXTENSION_VERSION"  = "~3" 
-    "FUNCTIONS_WORKER_RUNTIME"     = "python"
-    "REDIS_PASSWORD"               = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["REDIS-PASSWORD"].name})"
-    "REDIS_HOST"                   = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["REDIS-HOST"].name})"
-    "SERVICEBUS_CONNECTION_STRING" = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["SERVICE-BUS-CONNECTION-STRING"].name})"
+    "FUNCTIONS_EXTENSION_VERSION"      = "~3"
+    "FUNCTIONS_WORKER_RUNTIME"         = "python"
+    "REDIS_PASSWORD"                   = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["REDIS-PASSWORD"].name})"
+    "REDIS_HOST"                       = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["REDIS-HOST"].name})"
+    "AzureWebJobsServiceBusConnection" = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.kv.name};SecretName=${azurerm_key_vault_secret.kvsecrets["SERVICE-BUS-CONNECTION-STRING"].name})"
   }
 }
