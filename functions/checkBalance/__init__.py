@@ -20,4 +20,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if not user_balance:
         user_balance = 0
         redis_client.set(user_id, user_balance)
-    return func.HttpResponse(json.dumps({'balance': user_balance}, status_code=200))
+    return func.HttpResponse(f'Balance of user with {user_id} is {user_balance}')
