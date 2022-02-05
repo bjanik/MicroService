@@ -13,6 +13,7 @@ def get_user_balance(user_id, redisClient):
     if not user_balance:
         user_balance = 0
     user_balance = int(user_balance)
+    return user_balance
 
 def main(msg: func.ServiceBusMessage):
     body = json.loads(msg.get_body().decode('utf8'))
