@@ -1,0 +1,18 @@
+{
+    "scriptFile": "__init__.py",
+    "bindings": [
+        {
+            "authLevel": "function",
+            "direction": "in",
+            "connection": "ServiceBusConnection",
+            "name": "msg",
+            "queueName": "account-manager-queue",
+            "type": "serviceBusTrigger"
+        },
+        {
+            "type": "http",
+            "direction": "out",
+            "name": "$return"
+        }
+    ]
+}
