@@ -6,29 +6,58 @@ on:
     branches: ['master']
 
 jobs:
-    terraform-deployment:
+    # terraform-deployment:
+    #   runs-on: ubuntu-latest
+    #   env:
+    #     ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+    #     ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+    #     ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+    #     ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+    #     TF_VAR_location: "westeurope"
+    #     TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
+    #     TF_VAR_admin_key_vault_object_ids: ${{ secrets.ADMIN_KV_ID }}
+    #   steps:
+    #     - uses: actions/checkout@v2
+
+    #     - name: Setup Terraform
+    #       uses: hashicorp/setup-terraform@v1
+
+    #     - name: Terraform Init
+    #       working-directory: ./terraform
+    #       run: terraform init
+
+    #     - name: Terraform apply
+    #       working-directory: ./terraform
+    #       run: terraform apply --auto-approve
+    build-and-deploy:
       runs-on: ubuntu-latest
       env:
-        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-        TF_VAR_location: "westeurope"
-        TF_VAR_tenant_id: ${{ secrets.TENANT_ID }}
-        TF_VAR_admin_key_vault_object_ids: ${{ secrets.ADMIN_KV_ID }}
+        AZURE_FUNCTIONAPP_NAME: account-manager-fun
+        AZURE_FUNCTIONAPP_PACKAGE_PATH: ./functions
+        PYTHON_VERSION: 3.9
       steps:
-        - uses: actions/checkout@v2
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2
 
-        - name: Setup Terraform
-          uses: hashicorp/setup-terraform@v1
+      - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
 
-        - name: Terraform Init
-          working-directory: ./terraform
-          run: terraform init
-
-        - name: Terraform apply
-          working-directory: ./terraform
-          run: terraform apply --auto-approve
+      - name: 'Resolve Project Dependencies Using Pip'
+        shell: bash
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --target=".python_packages/lib/site-packages"
+          popd
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
 
     # deploy-functions:
     #   runs-on: ubuntu-latest
