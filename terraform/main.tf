@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "bart-tfstates"
+    resource_group_name  = "azdevops-jbartlomiej"
     storage_account_name = "barttfstates"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
