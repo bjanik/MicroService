@@ -10,7 +10,6 @@ jobs:
       runs-on: ubuntu-latest
       env:
         AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-        working-directory: ./terraform
       steps:
         - uses: actions/checkout@v2
 
@@ -18,9 +17,11 @@ jobs:
           uses: hashicorp/setup-terraform@v1
 
         - name: Terraform Init
+          working-directory: ./terraform
           run: terraform init
 
         - name: Terraform apply
+          working-directory: ./terraform
           run: terraform apply --auto-approve
 
     # deploy-functions:
