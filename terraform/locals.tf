@@ -1,5 +1,6 @@
 locals {
   project_name         = "account-manager"
+  rg_name              = "azdevops-jbartlomiej"
   storage_account_name = format("%s%s", "accountmanager", "sa")
 
   resource_list = ["asp", "rg", "fun", "kv", "redis", "queue", "sbn"]
