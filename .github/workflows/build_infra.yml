@@ -1,0 +1,41 @@
+name: Workflow
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+
+jobs:
+    terraform-deployment:
+      runs-on: ubuntu-latest
+      env:
+        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        working-directory: ./terraform
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
+
+        - name: Terraform Init
+          run: terraform init
+
+        - name: Terraform apply
+          run: terraform apply --auto-approve
+
+    # deploy-functions:
+    #   runs-on: ubuntu-latest
+    #   env:
+    #     working-directory: ./functions
+    #   steps:
+    #     - uses: actions/checkout@v2
+    #     - uses: Azure/functions-action@v1
+    #   with:
+    #     app-name: PLEASE_REPLACE_THIS_WITH_YOUR_FUNCTION_APP_NAME
+    #     publish-profile: ${{ secrets.SCM_CREDENTIALS }}
+
+
+
+
+
+
